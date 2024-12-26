@@ -11,3 +11,6 @@ K-means clustering (k-Means) is a dimension reduction technique.
 Identifies groups of data points without knowledge of existing classes.
 
 ![k-Means](https://github.com/mdsdanny/pre_model/blob/main/k-means.png)
+
+
+Reference, Machine Learning with Python by Oliver Theobald
