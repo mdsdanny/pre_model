@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from core.model import Model
 
-class ModelPCA(Model):
+class Pca(Model):
 
     def scale(self):
         """
@@ -20,7 +20,7 @@ class ModelPCA(Model):
         scaler.fit(self.df.data_frame())
         return scaler.transform(self.df.data_frame())
 
-    def pca(self, scaled_data, n_components):
+    def pca_transform(self, scaled_data, n_components):
         """
         Reshape the dataframe's features into a defined number of components.
         That best explain variability in the data.
@@ -28,9 +28,9 @@ class ModelPCA(Model):
         :param n_components: Number of components.
         :return: The transform data into components.
         """
-        pca = PCA(n_components=n_components)
-        pca.fit(scaled_data)
-        return pca.transform(scaled_data)
+        self.model = PCA(n_components=n_components)
+        self.model.fit(scaled_data)
+        return self.model.transform(scaled_data)
 
     def visualize(self, scaled, size, legend, colors, labels):
         """

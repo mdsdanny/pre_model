@@ -7,7 +7,7 @@ from sklearn.datasets import make_blobs
 from sklearn.cluster import KMeans
 from core.model import Model
 
-class ModelKMeans(Model):
+class Kmeans(Model):
 
     def __init__(self, n_samples, n_features, centers, cluster_std, random_state, csv_file=None):
         """
