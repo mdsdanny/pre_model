@@ -36,9 +36,9 @@ class Kmeans(Model):
         """
         self.X, self.y = make_blobs(n_samples=self.n_samples, n_features=self.n_features, centers=self.centers,
                                cluster_std=self.cluster_std, random_state=self.random_state)
-        model = KMeans(n_clusters=n_clusters)
-        model.fit(self.X)
-        return model
+        self.model = KMeans(n_clusters=n_clusters)
+        self.model.fit(self.X)
+        return self.model
 
     def predict(self, model):
         """
