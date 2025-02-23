@@ -5,15 +5,16 @@ import pandas as pd
 
 class DataFrame:
 
-    def __init__(self, csv_file, sep):
+    def __init__(self, csv_file, sep=None, df=None):
         """
         Initializes a DataFrame
         :param csv_file:
         :param sep: a separator
         """
-        self.df = None
+        self.df = df
         self.csv_file = csv_file
-        self.read_file(sep)
+        if not df:
+            self.read_file(sep)
 
     def read_file(self, sep):
         """
@@ -41,67 +42,6 @@ class DataFrame:
         """
         for c in columns:
             del self.df[c]
-
-    def head(self, n=10):
-        """
-        Previews the first n rows of the dataframe.
-        :param n:
-        :return: The dataframe n first rows
-        """
-        return self.df.head(n)
-
-    def tail(self, n=10):
-        """
-        Previews the last n rows of the dataframe.
-        :param n:
-        :return: The dataframe n last rows
-        """
-        return self.df.tail(n)
-
-    def shape(self):
-        """
-        Previews the number of rows and number of columns
-        :return: A tuple of number of rows and number of columns
-        """
-        s = self.df.shape
-        print(f'rows {s[0]}, columns {s[1]}')
-        return s
-
-    def row(self, index=None):
-        """
-        Retrieves the row indexed at position.
-        :param index: The index to find
-        :return: row as a dictionary
-        """
-        if index is None:
-            index = -1
-        row = self.df.iloc[index]
-
-        for k, v in row.items():
-            print(k, v)
-        return row
-
-    def columns(self):
-        """
-        Previews the columns of the dataframe
-        :return: The columns names
-        """
-        names = self.df.columns
-        for c in names:
-            print(c)
-        return names
-
-
-    def describe(self, include=None):
-        """
-        Generates a summary (Statistics) of the dataframe's mean, standard deviation and IQR (interquartile range) values.
-        :param include:
-        :return: the summary
-        """
-        if include is not None:
-            return self.df.describe(include=include)
-        return self.df.describe()
-
 
     def corr(self, numeric_only=True):
         """
@@ -174,4 +114,15 @@ class DataFrame:
         """
         #thresh=None
         return self.df.dropna(axis=0, how='any', subset=None, inplace=True)
+
+    def make_results(self, coef, X, columns):
+        """
+        #TODO
+        :param coef:
+        :param X:
+        :param columns:
+        :return:
+        """
+        return pd.DataFrame(coef, X, columns)
+
 

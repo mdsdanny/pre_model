@@ -4,12 +4,12 @@ from core import Model
 
 class GridSearch(Model):
 
-    def new_model(self, hyperparameters):
+    def init_model(self):
         """
         Creates and assigns a new GridSearchCV.
         :return: None
         """
-        self.model = GridSearchCV(SVC(), hyperparameters)
+        self.model = GridSearchCV(SVC(), {'C': [10, 25, 50], 'gamma': [0.001, 0.0001, 0.00001]})
 
     def bestParams(self):
         """

@@ -1,16 +1,16 @@
 """
-In supervised learning, Gradient Boosting TODO.
+In supervised learning, Gradient Boosting provides a regression/classification
+technique for aggregating the outcome of multiple decision trees. Is a sequential method
+that aims to improve the performance of each subsequent tree. (not in parallel)
 """
 from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
 from core.model import Model
+from scrubbing import DataScrubbing
+from validations import SplitValidation
 
 class GradientBoosting(Model):
 
-    def new_model(self):
-        """
-        Creates and assigns a new Decision Tree Classifier.
-        :return: None
-        """
+    def init_model(self):
         self.model = GradientBoostingClassifier(
             n_estimators= 250,
             learning_rate = 0.1,
@@ -21,20 +21,15 @@ class GradientBoosting(Model):
             loss = 'exponential'
         )
 
-    def new_model2(self):
-        """
-        Creates and assigns a new Decision Tree Classifier.
-        :return: None
-        """
-        self.model = GradientBoostingRegressor(
-            n_estimators=350,
-            learning_rate=0.1,
-            max_depth=5,
-            min_samples_split=4,
-            min_samples_leaf=6,
-            max_features=0.6,
-            loss='huber'
+    def reload_model(self, n_estimators = 350, loss='huber'):
+        self.model = GradientBoostingClassifier(
+            n_estimators= n_estimators,
+            learning_rate = 0.1,
+            max_depth = 5,
+            min_samples_split = 4,
+            min_samples_leaf = 6,
+            max_features = 0.6,
+            loss = loss
         )
-
 
 
