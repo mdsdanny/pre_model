@@ -3,21 +3,16 @@ Represents a Model
 """
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix, classification_report
 from sklearn import metrics
-from core import DataFrame
+from abc import ABC, abstractmethod
 
-class Model:
-    #TODO create sub class model file with only pandas
-    def __init__(self, csv_file=None, sep=None):
+
+class Model(ABC):
+    def __init__(self):
         """
         Initializes a DataFrame instance
-        :param csv_file: CSV file to parse
-        :param sep: a separator
         """
-        if csv_file:
-            self.df = DataFrame(csv_file, sep)
         self.X = []
         self.y = []
         self.model = None
@@ -26,13 +21,14 @@ class Model:
         #TODO render image to disk
         return None
 
-    def set_x(self, variables):
+    def set_x(self, df, variables):
         """
         The X array contains the independent variables.
+        :param df:
         :param variables: independent variables
         :return: None
         """
-        self.X = self.df.data_frame()[variables]
+        self.X = df[variables]
 
     def set_x_scaled(self, scaled):
         """
@@ -42,29 +38,32 @@ class Model:
         """
         self.X = scaled
 
-    def set_non_x(self, variable):
+    def set_y_scaled(self, scaled):
         """
-        The X array contains the independent variables.
-        :param variables: independent variables
+        The y scaled contains the dependent variable.
+        :param scaled: dependent variable
         :return: None
         """
-        self.X = self.df.data_frame().drop(variable, axis=1)
+        self.y = scaled
 
-    def set_y(self, variable):
+    def set_non_x(self,  df, variable, axis=1):
+        """
+        The X array contains the independent variables.
+        :param axis:
+        :param df:
+        :param variable: independent variable
+        :return: None
+        """
+        self.X = df.drop(variable, axis=axis)
+
+    def set_y(self, df, variable):
         """
         The y contains the dependent variable.
+        :param df:
         :param variable: dependent variable
         :return:
         """
-        self.y = self.df.data_frame()[variable]
-
-    def perform_split(self):
-        """
-        Shuffle and subdivides the data into training and test data. Using a standard of 70/30 % split
-        with a random seed number of 10.
-        :return:
-        """
-        return train_test_split(self.X, self.y, test_size=0.3, random_state=10, shuffle=True)
+        self.y = df[variable]
 
     def fit(self, X_train, y_train):
         """
@@ -83,9 +82,31 @@ class Model:
         """
         return self.model.predict(independents)
 
-    def heatmap(self, fn, cmap=None):
+    def intercept(self):
+        """
+        Inspect the y-intercept of the model.
+        :return: The y-intercept of the model
+        """
+        return self.model.intercept_
+
+    def coef(self):
+        """
+        Inspects tje coefficients of the X independent variables.
+        :return: coefficients of the X variables
+        """
+        st = str(self.model.coef_[0])
+        st = st.replace('[', '')
+        st = st.replace(']', '')
+        return [float(s) for s in st.split()]
+
+    @abstractmethod
+    def init_model(self):
+        pass
+
+    def heatmap(self, corr, fn, cmap=None):
         """
         Displays relationships between variables. Is a matrix of structure rows and columns representing values in color.
+        :param corr:
         :param fn: Figure's number
         :param cmap: a Layout of colors
         :return: None
@@ -97,12 +118,13 @@ class Model:
         t.start()
         t.add_callback(close_figure)
         plt.title("heatmap")
-        sns.heatmap(self.df.corr(), annot=True, cmap=cmap)
+        sns.heatmap(corr, annot=True, cmap=cmap)
 
 
-    def pairplot(self, fn, columns=None):
+    def pairplot(self, df, fn, columns=None):
         """
         Displays patterns between two variables. Takes the form of a 2D or 3D grid of plots of variables against other variables of the data frame.
+        :param df:
         :param fn: Figure's number
         :param columns: Names to evaluate
         :return: None
@@ -114,9 +136,9 @@ class Model:
         t = f.canvas.new_timer(interval=100000)
         t.start()
         t.add_callback(close_figure)
-        sns.pairplot(self.df.data_frame(), vars=columns)
+        sns.pairplot(df, vars=columns)
 
-    def distplot(self, fn, variable):
+    def distplot(self, df, fn, variable):
         """
         Displays behaviour of a variable in given frame.
         :param fn: Figure's number
@@ -128,15 +150,9 @@ class Model:
         t = f.canvas.new_timer(interval=100000)
         t.start()
         t.add_callback(close_figure)
-        sns.distplot(self.df.data_frame()[variable], kde=True, hist=0)
+        sns.distplot(df[variable], kde=True, hist=0)
 
-    def drop_variables(self, variables):
-        """
-        Removes fully the given variables from the dataframe.
-        :param variables: variables to be removed.
-        :return:
-        """
-        self.df.drop_columns(variables)
+
 
     @staticmethod
     def display():

@@ -8,13 +8,10 @@ from core.model import Model
 
 class RandomForests(Model):
 
-    def new_model(self):
+    def init_model(self):
         """
         Creates and assigns a new Decision Tree Classifier.
         :return: None
         """
         self.model = RandomForestClassifier()
-
-
-
 

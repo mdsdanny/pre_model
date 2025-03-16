@@ -4,12 +4,14 @@ quantitative relationships between variables. It accepts both continuous
 and discrete variables as input and its output is qualitative; it predicts
 a discrete class such as Yes/No or Customer/No customer.
 """
-import pandas as pd
 from sklearn.linear_model import LogisticRegression
-from core.model import Model
+from core import Model
+from scrubbing import DataScrubbing
+from validations import SplitValidation
 
 class Logisticregression(Model):
 
+    '''
     def results(self, columns):
         """
         Creates a table for each row of the independent variable and a specific column.
@@ -17,30 +19,13 @@ class Logisticregression(Model):
         :return:
         """
         return pd.DataFrame(self.coef(), self.X.columns, columns=columns)
+    '''
 
-    def new_model(self):
+    def init_model(self):
         """
         Creates and assigns a new Logistic Regression model.
         :return: None
         """
         self.model = LogisticRegression()
-
-    def intercept(self):
-        """
-        Inspect the y-intercept of the model.
-        :return: The y-intercept of the model
-        """
-        return self.model.intercept_
-
-    def coef(self):
-        """
-        Inspects tje coefficients of the X independent variables.
-        :return: coefficients of the X variables
-        """
-        st = str(self.model.coef_[0])
-        st = st.replace('[', '')
-        st = st.replace(']', '')
-        return [float(s) for s in st.split()]
-
 
 

@@ -9,12 +9,13 @@ from core.model import Model
 
 class DecisionTree(Model):
 
-    def new_model(self):
+    def init_model(self):
         """
-        Creates and assigns a new Decision Tree Classifier.
-        :return: None
-        """
+       Creates and assigns a new Decision Tree Classifier.
+       :return: None
+       """
         self.model = DecisionTreeClassifier()
+
 
 
 

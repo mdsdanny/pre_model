@@ -6,27 +6,33 @@ of data points closest to the target datapoint.
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from core.model import Model
+from scrubbing import DataScrubbing
+from validations import SplitValidation
+
 
 class KNearestNeighbors(Model):
 
-    def new_model(self, n):
+    def init_model(self):
         """
         Creates and assigns a new KNeighborsClassifier.
         :return: None
         """
-        self.model = KNeighborsClassifier(n_neighbors=n)
+        self.model = KNeighborsClassifier()
 
-    def scale(self):
+    def add_n_neighbors(self, n):
+        """
+        Creates and assigns a new KNeighborsClassifier.
+        :return: None
+        """
+        self.model.n_neighbors = n
+
+    def scale(self, independents):
         """
         #TODO description
+        :return:
+        :param independents:
         :return: Scaled data
         """
         scaler = StandardScaler()
-        scaler.fit(self.df.data_frame().drop('Clicked on Ad', axis=1))
-        return scaler.transform(self.df.data_frame().drop('Clicked on Ad', axis=1))
-
-
-
-
-
-
+        scaler.fit(independents)
+        return scaler.transform(independents)
