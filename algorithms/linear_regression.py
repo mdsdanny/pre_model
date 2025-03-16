@@ -8,9 +8,6 @@ space, a hyperplane is a one-dimensional subspace/flat line.
 """
 from sklearn.linear_model import LinearRegression
 from core import Model
-from core import DataFrame
-from scrubbing import DataScrubbing
-from validations import SplitValidation
 
 
 class Linearregression(Model):
@@ -22,13 +19,3 @@ class Linearregression(Model):
         """
         self.model = LinearRegression()
 
-    '''
-    def results(self, df, columns):
-        """
-        Creates a table for each row of the independent variable and a specific column.
-        :param columns: A column's
-        :return:
-        """
-
-        return df.make_results(self.coef(), self.X.columns, columns=columns)
-    '''

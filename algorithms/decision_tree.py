@@ -6,9 +6,6 @@ different classes).
 """
 from sklearn.tree import DecisionTreeClassifier
 from core.model import Model
-from scrubbing import DataScrubbing
-from validations import SplitValidation
-
 
 class DecisionTree(Model):
 
@@ -18,3 +15,7 @@ class DecisionTree(Model):
        :return: None
        """
         self.model = DecisionTreeClassifier()
+
+
+
+

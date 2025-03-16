@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from core import PreModel
-from scrubbing import DataScrubbing
-
 
 class Pca(PreModel):
 

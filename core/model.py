@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix, classification_report
 from sklearn import metrics
-from abc import ABC, abstractclassmethod, abstractmethod
+from abc import ABC, abstractmethod
 
 
 class Model(ABC):
@@ -38,14 +38,23 @@ class Model(ABC):
         """
         self.X = scaled
 
-    def set_non_x(self,  df, variable):
+    def set_y_scaled(self, scaled):
+        """
+        The y scaled contains the dependent variable.
+        :param scaled: dependent variable
+        :return: None
+        """
+        self.y = scaled
+
+    def set_non_x(self,  df, variable, axis=1):
         """
         The X array contains the independent variables.
+        :param axis:
         :param df:
         :param variable: independent variable
         :return: None
         """
-        self.X = df.drop(variable, axis=1)
+        self.X = df.drop(variable, axis=axis)
 
     def set_y(self, df, variable):
         """

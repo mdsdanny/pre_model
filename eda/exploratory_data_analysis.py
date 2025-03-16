@@ -6,8 +6,6 @@ for missing values, learning which features are most relevant based on correlati
 and familiarizing yourself with the overall contents of the dataset.
 """
 from core import DataFrame
-from core import Model
-
 
 class ExploratoryDataAnalysis(DataFrame):
 

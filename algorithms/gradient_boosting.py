@@ -5,8 +5,6 @@ that aims to improve the performance of each subsequent tree. (not in parallel)
 """
 from sklearn.ensemble import GradientBoostingClassifier, GradientBoostingRegressor
 from core.model import Model
-from scrubbing import DataScrubbing
-from validations import SplitValidation
 
 class GradientBoosting(Model):
 
@@ -22,7 +20,7 @@ class GradientBoosting(Model):
         )
 
     def reload_model(self, n_estimators = 350, loss='huber'):
-        self.model = GradientBoostingClassifier(
+        self.model = GradientBoostingRegressor(
             n_estimators= n_estimators,
             learning_rate = 0.1,
             max_depth = 5,
@@ -31,5 +29,6 @@ class GradientBoosting(Model):
             max_features = 0.6,
             loss = loss
         )
+
 
 

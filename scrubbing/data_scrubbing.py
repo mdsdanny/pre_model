@@ -27,4 +27,3 @@ def display():
 def close_figure():
     plt.close()
 
-

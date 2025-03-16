@@ -5,8 +5,6 @@ by averaging the output for regression or class voting for classification.
 """
 from sklearn.ensemble import RandomForestClassifier
 from core.model import Model
-from scrubbing import DataScrubbing
-from validations import SplitValidation
 
 class RandomForests(Model):
 

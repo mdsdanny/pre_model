@@ -5,7 +5,6 @@ and is kept in reserve and used to assess the accuracy of the model developed fr
 """
 from core.model import Model
 from sklearn.model_selection import train_test_split
-from scrubbing import DataScrubbing
 
 class SplitValidation(Model):
 
@@ -22,6 +21,16 @@ class SplitValidation(Model):
         # Step 6 Split Validation
         return self.perform_split()
 
+    def split_scaled(self, x_variables, y_variable):
+        """
+        #TODO
+        """
+        # Step 4 Data Scrubbing
+        self.set_x_scaled(x_variables)
+        self.set_y_scaled(y_variable)
+        # Step 6 Split Validation
+        return self.perform_split()
+
     def perform_split(self, test_size=0.3, random_state=10, shuffle=True):
         """
         Shuffle and subdivides the data into training and test data. Using a standard of 70/30 % split
@@ -29,5 +38,4 @@ class SplitValidation(Model):
         :return:
         """
         return train_test_split(self.X, self.y, test_size=test_size, random_state=random_state, shuffle=shuffle)
-
 

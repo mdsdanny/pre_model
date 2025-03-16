@@ -28,3 +28,4 @@ class Logisticregression(Model):
         """
         self.model = LogisticRegression()
 
+

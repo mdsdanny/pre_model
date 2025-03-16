@@ -26,18 +26,13 @@ class KNearestNeighbors(Model):
         """
         self.model.n_neighbors = n
 
-    def scale(self, df, dependent_variable, axis):
+    def scale(self, independents):
         """
         #TODO description
-        :param df:
-        :param dependent_variable:
-        :param axis:
+        :return:
+        :param independents:
         :return: Scaled data
         """
         scaler = StandardScaler()
-        scaler.fit(df.drop(dependent_variable, axis=axis))
-        return scaler.transform(df.drop(dependent_variable, axis=axis))
-
-
-
-
+        scaler.fit(independents)
+        return scaler.transform(independents)
