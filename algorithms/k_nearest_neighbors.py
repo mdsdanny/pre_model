@@ -6,9 +6,6 @@ of data points closest to the target datapoint.
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from core.model import Model
-from scrubbing import DataScrubbing
-from validations import SplitValidation
-
 
 class KNearestNeighbors(Model):
 

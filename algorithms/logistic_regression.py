@@ -6,8 +6,6 @@ a discrete class such as Yes/No or Customer/No customer.
 """
 from sklearn.linear_model import LogisticRegression
 from core import Model
-from scrubbing import DataScrubbing
-from validations import SplitValidation
 
 class Logisticregression(Model):
 
